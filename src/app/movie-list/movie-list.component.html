@@ -1,0 +1,42 @@
+<!-- 
+  Doesn't show anything, if movies are not yet loaded
+  If Response was unsuccesful, shows error page
+  Each movie preview (moviepages-info) is a div that can be clicked
+  As in Movie Detail, if there is no poster, "?" is shown
+  and if other info is missing, nothing is shown
+ -->
+<ng-container *ngIf="moviePage">
+  <div class="moviepages" *ngIf="moviePage.Search; else error">
+    <div
+      class="moviepages-info"
+      (click)="onClick(movie.imdbID)"
+      *ngFor="let movie of moviePage.Search"
+    >
+      <ng-container *ngIf="movie.Poster !== 'N/A'; else noPoster">
+        <img
+          class="moviepages-poster"
+          src="{{ movie.Poster }}"
+          alt="Movie Poster"
+        />
+      </ng-container>
+      <ng-template #noPoster>
+        <img
+          class="moviepages-poster"
+          src="/assets/images/300pxDramaticQuestionMark.png"
+          alt="Movie Poster"
+        />
+      </ng-template>
+      <div class="moviepages-info-space"></div>
+      <div class="moviepages-info-text">
+        <h4>{{ movie.Title }}</h4>
+        <h4 *ngIf="movie.Year !== 'N/A'">({{ movie.Year }})</h4>
+        <span *ngIf="movie.Type !== 'N/A'">{{ movie.Type }}</span>
+      </div>
+    </div>
+  </div>
+  <ng-template #error>
+    <app-error error="No movies found..."></app-error>
+  </ng-template>
+</ng-container>
+
+<!-- Title, Year, Type, Poster -->

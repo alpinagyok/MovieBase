@@ -1,0 +1,70 @@
+@import "../../config"
+
+// For flex box
+$desk-cols: 4
+$mobile-cols: 2
+$col-padding: 1%
+  
+.moviepages
+  background-color: $primary-color-text
+  display: flex
+  flex-wrap: wrap
+  width: 100%
+  justify-content: center
+    
+  &-info
+    // Maybe it should've been just 25% to show 4 elements in a row but
+    // it didn't work here so I calculated flex-basis like this
+    flex-basis: calc((100% - #{$col-padding * $desk-cols * 2}) / #{$desk-cols})
+    margin: 2rem $col-padding
+    text-align: center
+    cursor: pointer
+    position: relative
+
+    // Do animations when hovering
+    &:hover
+      .moviepages-info-text
+        background-color: $primary-color-dark
+
+      .moviepages-info-text > *
+        color: $primary-color-text
+
+    &-space
+      height: 60px
+
+    &-text
+      width: 100%
+      position: absolute
+      bottom: 0
+      left: 50%
+      transform: translate(-50%, 0)
+      background-color: $primary-color-text
+      
+      -webkit-transition: background-color 1s
+      transition: background-color 1s
+
+      h4
+        margin-bottom: 2px
+        margin-top: 10px
+
+      span
+        display: block
+        padding-bottom: 10px
+        border-bottom: 2px solid $primary-color-dark
+
+      // Animation for every element in movipages-info-text
+      & > *
+        -webkit-transition: color 1s
+        transition: color 1s
+
+  // Show 2 elems in a row for mobile (or tablet / small screen / whatever)
+  @media (max-width: $mobile-width) 
+    &-info
+      flex-basis: calc((100% - #{$col-padding * $mobile-cols * 2}) / #{$mobile-cols})
+
+
+img 
+  border-radius: 8px
+  // Fit image correctly so at all points there are only 2 or 4 movie previews in a row
+  max-width: 100%
+  max-height: 100%

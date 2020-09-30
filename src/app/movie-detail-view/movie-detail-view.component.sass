@@ -1,0 +1,74 @@
+@import "../../config"
+
+.movie-detail
+  background-color: $primary-color-text
+
+  // Everything besides plot
+  &-half
+    display: flex
+    flex-wrap: wrap
+    width: 100%
+    background-color: $divider-color-light
+
+    border-bottom: 2px solid $divider-color
+
+  &-info
+    padding: 40px 40px 40px 0
+
+    h1, h2, h3
+      display: inline
+
+    h2
+      padding-left: 15px
+
+    h3
+      border-bottom: 2px solid $underline-color
+
+    table
+      margin-top: 20px
+      border-spacing: 0
+
+      tr
+        td
+          padding: 5px 0
+
+          // For spacing
+          &:empty
+            width: 20px
+
+          &:first-child
+            color: $secondary-text-color
+
+      // Add borders between elements
+      tr:not(:last-child) td
+        border-bottom: 1px solid $divider-color
+
+  &-poster
+    padding: 40px 40px 40px 40px
+
+  &-plot
+    padding: 40px 40px 20px 40px
+
+    h3
+      display: inline
+      border-bottom: 2px solid $underline-color
+
+    span
+      display: block
+      padding: 20px 0
+
+  // For mobile
+  @media (max-width: $mobile-width) 
+    &-info
+      flex-basis: $mobile-width
+      padding: 40px 40px 40px 20px
+
+    &-poster
+      flex: 2
+      text-align: center
+
+    &-plot
+      padding: 20px 20px 0 20px
+  
+img 
+  border-radius: 8px

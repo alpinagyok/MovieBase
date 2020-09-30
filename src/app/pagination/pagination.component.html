@@ -1,0 +1,72 @@
+<!-- 
+  Show max 5 page numbers. Here we have just a few cases
+  1) 5 or less pages: show all
+  2) More than 5 pages
+    2.1) Current page <= 3: show first 4, ..., last page
+    2.2) Current page is in the last 3: show first, ..., last 4 pages
+    2.3) Last case (current page in the middle): first, ..., middle 3 pages, ..., last
+ -->
+<div>
+  <ng-container *ngIf="totalPages <= 5; else moreThanFive">
+    <button
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      [ngClass]="{ 'current-page': currentPage === i + 1 }"
+      (click)="onClick(i + 1)"
+    >
+      {{ i + 1 }}
+    </button>
+  </ng-container>
+
+  <ng-template #moreThanFive>
+    <ng-container *ngIf="currentPage <= 3; else inTheEnd">
+      <button
+        *ngFor="let page of [1, 2, 3, 4]"
+        [ngClass]="{ 'current-page': currentPage === page }"
+        (click)="onClick(page)"
+      >
+        {{ page }}
+      </button>
+      <span>...</span>
+      <button (click)="onClick(totalPages)">{{ totalPages }}</button>
+    </ng-container>
+
+    <ng-template #inTheEnd>
+      <ng-container *ngIf="currentPage > totalPages - 3; else inTheCenter">
+        <button (click)="onClick(1)">{{ 1 }}</button>
+        <span>...</span>
+        <button
+          *ngFor="
+            let page of [
+              totalPages - 3,
+              totalPages - 2,
+              totalPages - 1,
+              totalPages
+            ]
+          "
+          [ngClass]="{ 'current-page': currentPage === page }"
+          (click)="onClick(page)"
+        >
+          {{ page }}
+        </button>
+      </ng-container>
+
+      <ng-template #inTheCenter>
+        <button (click)="onClick(1)">{{ 1 }}</button>
+        <span>...</span>
+
+        <button (click)="onClick(currentPage - 1)">
+          {{ currentPage - 1 }}
+        </button>
+        <button class="current-page" (click)="onClick(currentPage)">
+          {{ currentPage }}
+        </button>
+        <button (click)="onClick(currentPage + 1)">
+          {{ currentPage + 1 }}
+        </button>
+
+        <span>...</span>
+        <button (click)="onClick(totalPages)">{{ totalPages }}</button>
+      </ng-template>
+    </ng-template>
+  </ng-template>
+</div>

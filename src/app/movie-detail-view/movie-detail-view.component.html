@@ -1,0 +1,67 @@
+<!-- 
+  Consists of 2 "halves": 1) everything besides plot; 2) plot
+  First half changes on mobile view
+  If there is no poster given, shows picture of "?"
+  If other info is missing, doesn't show it at all
+-->
+
+<div class="movie-detail">
+  <div *ngIf="movie.Title; else error">
+    <div class="movie-detail-half">
+      <div class="movie-detail-poster">
+        <ng-container *ngIf="movie.Poster !== 'N/A'; else noPoster">
+          <img src="{{ movie.Poster }}" alt="Movie Poster" />
+        </ng-container>
+        <ng-template #noPoster>
+          <img
+            src="/assets/images/300pxDramaticQuestionMark.png"
+            alt="Movie Poster"
+          />
+        </ng-template>
+        <!-- Title shouldn't be undefined -->
+      </div>
+
+      <div class="movie-detail-info">
+        <h1>{{ movie.Title }}</h1>
+        <ng-container *ngIf="movie.Ratings.length > 0">
+          <h2>{{ movie.Ratings[0].Value }}</h2>
+        </ng-container>
+        <hr />
+        <h3>About</h3>
+        <table>
+          <tr *ngIf="movie.Year !== 'N/A'">
+            <td>Year</td>
+            <td></td>
+            <td>{{ movie.Year }}</td>
+          </tr>
+          <tr *ngIf="movie.Type !== 'N/A'">
+            <td>Type</td>
+            <td></td>
+            <td>{{ movie.Type }}</td>
+          </tr>
+          <tr *ngIf="movie.Runtime !== 'N/A'">
+            <td>Runtime</td>
+            <td></td>
+            <td>{{ movie.Runtime }}</td>
+          </tr>
+          <tr *ngIf="movie.Genre !== 'N/A'">
+            <td>Genre</td>
+            <td></td>
+            <td>{{ movie.Genre }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="movie-detail-plot" *ngIf="movie.Plot !== 'N/A'">
+      <h3>Plot</h3>
+      <span>{{ movie.Plot }}</span>
+    </div>
+  </div>
+
+  <ng-template #error>
+    <app-error error="Cannot find the movie..."></app-error>
+  </ng-template>
+</div>
+
+<!-- Title, Year, Type, Poster, Plot, IMDB rating, Runtime, Genre -->

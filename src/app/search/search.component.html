@@ -1,0 +1,26 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <div class="search-first-div">
+    <label>
+      <span>Title:</span>
+      <input type="text" formControlName="title" />
+    </label>
+
+    <label>
+      <span>Year:</span>
+      <input type="text" formControlName="year" />
+    </label>
+  </div>
+  <div class="search-second-div">
+    <label>
+      <span>Type:</span>
+      <select name="singleSelect" formControlName="type">
+        <option value="">All</option>
+        <option value="movie">Movie</option>
+        <option value="series">Series</option>
+        <option value="episode">Episode</option>
+      </select>
+    </label>
+
+    <button type="submit" [disabled]="!searchForm.valid">Search</button>
+  </div>
+</form>

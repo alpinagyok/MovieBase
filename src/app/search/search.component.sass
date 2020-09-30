@@ -1,0 +1,85 @@
+// General idea is that title and year field are in one box,
+// type field and button are in another. So on the large screen we get
+// 4 elements in a row, on medium 2x2 and on small 4 in a column.
+@import "../../config"
+
+form
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+
+  div
+    flex-basis: 50%
+
+    display: flex
+    flex-wrap: wrap
+
+    button
+      padding: 0 88px
+      outline: none
+
+      height: 34px
+      background-color: $primary-color-text
+      border: 2px solid $accent-color
+      margin: 8px 0
+      color: $accent-color
+      font-size: 1rem
+      align-self: flex-end
+      cursor: pointer
+
+      -webkit-transition: all 0.3s
+      transition: all 0.3s
+
+      // Do animation when hovering
+      &:hover
+        border-color: $primary-color-dark
+        color: $primary-color-dark
+        font-size: 1.1rem
+        
+      // Do animation when clicking
+      &:active
+        border-color: $primary-color-dark
+        color: $primary-color-text
+        background-color: $primary-color-dark
+        font-size: 1.1rem
+
+    input, select
+      border: 2px solid $divider-color
+      padding: 6px 16px
+      margin: 8px 0
+      box-sizing: border-box
+      font-size: 1rem
+
+      &:focus 
+        border: 2px solid $accent-color
+
+    select
+      height: 34px
+      align-self: flex-end
+      cursor: pointer
+      width: 231px
+
+    input
+      order: 2
+      outline: none
+
+    label, button
+      flex-basis: 45%
+      margin-left: 10px
+      margin-right: 10px
+
+    @media (min-width: $mobile-width) 
+      input, select
+        width: 100%
+
+      button
+        padding: 0
+
+    span
+      display: block
+
+  // For 2x2 view
+  .search-first-div
+    justify-content: flex-end
+  .search-second-div
+    justify-content: flex-start

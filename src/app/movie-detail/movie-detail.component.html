@@ -1,0 +1,5 @@
+<!-- Show movie detail or loading -->
+<ng-container *ngIf="movie$ | async as movie; else loading">
+  <app-movie-detail-view [movie]="movie"></app-movie-detail-view>
+</ng-container>
+<ng-template #loading><app-loading></app-loading></ng-template>

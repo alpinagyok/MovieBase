@@ -1,0 +1,11 @@
+<div>
+  <app-search [searchQuery]="searchQuery"></app-search>
+  <ng-container *ngIf="moviePage$ | async as moviePage; else loading">
+    <app-movie-list [moviePage]="moviePage"></app-movie-list>
+  </ng-container>
+  <ng-template #loading><app-loading></app-loading></ng-template>
+  <app-pagination
+    [searchQuery]="searchQuery"
+    [currentPage]="urlPage"
+  ></app-pagination>
+</div>
